@@ -1,0 +1,41 @@
+name: Fetch Batch 4
+on:
+  schedule:
+    - cron: '30 2 * * 1-5'   # weekdays 02:30 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas numpy
+
+      - name: Fetch batch 4 data
+        run: python scripts/fetch_batch.py --batch 4 --output data/batch_4.json
+
+      - name: Merge into dated output CSV
+        run: python scripts/merge_output.py --batch data/batch_4.json --output-dir output/
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/batch_4.json output/
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update batch 4 $(date +%Y-%m-%d)"
+            git pull --rebase origin main || git pull --rebase origin master
+            git push
+          else
+            echo "No changes to commit"
+          fi
