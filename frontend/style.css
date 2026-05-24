@@ -265,6 +265,7 @@ body {
     position: relative;
     flex: 1;
     min-width: 280px;
+    max-width: 32rem;
 }
 
 .search-icon {
@@ -372,7 +373,9 @@ body {
 
 .table-wrapper {
     overflow-x: auto;
+    overflow-y: auto;
     width: 100%;
+    max-height: 70vh;
 }
 
 table {
@@ -384,11 +387,14 @@ table {
 
 thead {
     background-color: #1e293b;
-    border-bottom: 2px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    box-shadow: inset 0 -2px 0 var(--border-color);
 }
 
 th {
-    padding: 1rem 0.75rem;
+    padding: 1rem 0.625rem;
     font-family: var(--font-heading);
     font-weight: 700;
     text-transform: uppercase;
@@ -397,6 +403,14 @@ th {
     color: var(--text-secondary);
     user-select: none;
     white-space: nowrap;
+}
+
+th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 40;
+    background-color: #1e293b;
+    box-shadow: inset -1px -2px 0 var(--border-color);
 }
 
 th.sortable {
@@ -469,7 +483,7 @@ tbody tr:hover {
 }
 
 td {
-    padding: 0.85rem 0.75rem;
+    padding: 0.75rem 0.625rem;
     vertical-align: middle;
     white-space: nowrap;
 }
@@ -479,6 +493,15 @@ td {
     font-weight: 700;
     letter-spacing: -0.01em;
     color: #ffffff;
+    position: sticky;
+    left: 0;
+    background-color: var(--bg-card);
+    z-index: 20;
+    box-shadow: inset -1px 0 0 var(--border-color);
+}
+
+tbody tr:hover .ticker-col {
+    background-color: #1a233a;
 }
 
 .name-col {
