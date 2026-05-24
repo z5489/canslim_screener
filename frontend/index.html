@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,15 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- PapaParse CDN for CSV Parsing -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 </head>
+
 <body class="dark-theme">
     <div class="app-container">
         <!-- Header -->
@@ -65,7 +70,8 @@
         <section class="controls-card">
             <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="search-input" placeholder="Search by ticker or company name..." aria-label="Search stocks">
+                <input type="text" id="search-input" placeholder="Search by ticker or company name..."
+                    aria-label="Search stocks">
             </div>
             <div class="filter-toggles">
                 <button id="toggle-passing" class="toggle-btn active" data-filter="passing">
@@ -88,19 +94,41 @@
                 <table id="screener-table">
                     <thead>
                         <tr>
-                            <th data-sort="ticker" class="sortable text-left">Ticker <span class="sort-indicator"></span></th>
-                            <th data-sort="name" class="sortable text-left">Name <span class="sort-indicator"></span></th>
-                            <th data-sort="price" class="sortable text-right">Price <span class="sort-indicator"></span></th>
-                            <th data-sort="c1_price_vs_52w_low_passes" class="sortable text-center has-tooltip" data-tooltip="C1: Price vs 52W Low. Must be at least +70% above the 52-week low.">52W +70% <span class="sort-indicator"></span></th>
-                            <th data-sort="c2_market_cap_passes" class="sortable text-center has-tooltip" data-tooltip="C2: Market Capitalization. Must be >= $300M USD.">Mkt Cap <span class="sort-indicator"></span></th>
-                            <th data-sort="c3_eps_growth_passes" class="sortable text-center has-tooltip" data-tooltip="C3: EPS Diluted Growth YoY. Must be > 25% for the latest quarter.">EPS Q YoY <span class="sort-indicator"></span></th>
-                            <th data-sort="c4_avg_volume_passes" class="sortable text-center has-tooltip" data-tooltip="C4: Average Volume 60D. Average daily volume must exceed 500k shares.">Vol 60D <span class="sort-indicator"></span></th>
-                            <th data-sort="c5_price_vs_sma50_passes" class="sortable text-center has-tooltip" data-tooltip="C5: Price vs SMA 50. Current price must be above its 50-day Simple Moving Average.">Price/SMA50 <span class="sort-indicator"></span></th>
-                            <th data-sort="c6_volatility_1m_passes" class="sortable text-center has-tooltip" data-tooltip="C6: Volatility 1M. Average daily range-to-low ratio must be > 3% over the last month.">Vol 1M <span class="sort-indicator"></span></th>
-                            <th data-sort="c7_revenue_growth_passes" class="sortable text-center has-tooltip" data-tooltip="C7: Revenue Growth YoY. Quarterly revenue growth must exceed 25%.">Rev Q YoY <span class="sort-indicator"></span></th>
-                            <th data-sort="c8_float_passes" class="sortable text-center has-tooltip" data-tooltip="C8: Float Shares. Supply constraint: float must be <= 150M shares.">Float <span class="sort-indicator"></span></th>
-                            <th data-sort="c9_us_market_passes" class="sortable text-center has-tooltip" data-tooltip="C9: US Market. Must be listed on a US exchange (NMS, NYQ, NGM, NCM, ASE, PCX).">Market <span class="sort-indicator"></span></th>
-                            <th data-sort="passes_all" class="sortable text-center">Pass All <span class="sort-indicator"></span></th>
+                            <th data-sort="ticker" class="sortable text-left">Ticker <span
+                                    class="sort-indicator"></span></th>
+                            <th data-sort="name" class="sortable text-left">Name <span class="sort-indicator"></span>
+                            </th>
+                            <th data-sort="price" class="sortable text-right">Price <span class="sort-indicator"></span>
+                            </th>
+                            <th data-sort="c1_price_vs_52w_low_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C1: Price vs 52W Low. Must be at least +70% above the 52-week low.">52W
+                                +70% <span class="sort-indicator"></span></th>
+                            <th data-sort="c2_market_cap_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C2: Market Capitalization. Must be >= $300M USD.">Mkt Cap <span
+                                    class="sort-indicator"></span></th>
+                            <th data-sort="c3_eps_growth_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C3: EPS Diluted Growth YoY. Must be > 25% for the latest quarter.">EPS Q
+                                YoY <span class="sort-indicator"></span></th>
+                            <th data-sort="c4_avg_volume_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C4: Average Volume 60D. Average daily volume must exceed 500k shares.">Vol
+                                60D <span class="sort-indicator"></span></th>
+                            <th data-sort="c5_price_vs_sma50_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C5: Price vs SMA 50. Current price must be above its 50-day Simple Moving Average.">
+                                Price/SMA50 <span class="sort-indicator"></span></th>
+                            <th data-sort="c6_volatility_1m_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C6: Volatility 1M. Average daily range-to-low ratio must be > 3% over the last month.">
+                                Vol 1M <span class="sort-indicator"></span></th>
+                            <th data-sort="c7_revenue_growth_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C7: Revenue Growth YoY. Quarterly revenue growth must exceed 25%.">Rev Q
+                                YoY <span class="sort-indicator"></span></th>
+                            <th data-sort="c8_float_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C8: Float Shares. Supply constraint: float must be <= 150M shares.">Float
+                                <span class="sort-indicator"></span></th>
+                            <th data-sort="c9_us_market_passes" class="sortable text-center has-tooltip"
+                                data-tooltip="C9: US Market. Must be listed on a US exchange (NMS, NYQ, NGM, NCM, ASE, PCX).">
+                                Market <span class="sort-indicator"></span></th>
+                            <th data-sort="passes_all" class="sortable text-center">Pass All <span
+                                    class="sort-indicator"></span></th>
                         </tr>
                     </thead>
                     <tbody id="screener-tbody">
@@ -111,7 +139,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div id="no-results-msg" class="no-results-msg hidden">
                 <h3>No Stocks Found</h3>
                 <p>Try switching to "All stocks" or adjusting your search query.</p>
@@ -120,11 +148,11 @@
 
         <!-- Footer -->
         <footer class="app-footer">
-            <p>Data fetched from Yahoo Finance. This dashboard runs client-side with no persistent server backend.</p>
             <p>&copy; 2026 CANSLIM Screener. All rights reserved.</p>
         </footer>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>
