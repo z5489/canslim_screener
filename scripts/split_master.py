@@ -9,6 +9,9 @@ def split_master():
 
     master = pd.read_csv(csv_path)
     tickers = master["Ticker"].dropna().unique().tolist()
+    
+    # Filter out tickers containing a slash
+    tickers = [t for t in tickers if '/' not in str(t)]
     print(f"Total tickers in master watchlist: {len(tickers)}")
 
     # Split round-robin into 6 batches

@@ -201,6 +201,9 @@ def run(batch_num, output_path):
     master = pd.read_csv(master_path)
     tickers = master["Ticker"].dropna().unique().tolist()
     
+    # Filter out tickers containing a slash (e.g. preferred shares)
+    tickers = [t for t in tickers if '/' not in str(t)]
+    
     # Round-robin split: batch_num is 1-indexed (1 to 6)
     batches = [tickers[i::6] for i in range(6)]
     batch_tickers = batches[batch_num - 1]
