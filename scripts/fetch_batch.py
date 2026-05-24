@@ -233,7 +233,7 @@ def run(batch_num, output_path):
     print(f"Batch {batch_num} fetched successfully. Output written to {output_path}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Fetch CANSLIM criteria for a batch of tickers")
+    parser = argparse.ArgumentParser(description="Fetch Momentum Stock criteria for a batch of tickers")
     parser.add_argument("--batch", type=int, required=True, help="Batch index (1-6)")
     parser.add_argument("--output", type=str, required=True, help="Output path for batch JSON")
     args = parser.parse_args()

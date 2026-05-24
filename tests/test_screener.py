@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from scripts.fetch_batch import evaluate_criteria
 
-class TestCanslimScreener(unittest.TestCase):
+class TestMomentumStockScreener(unittest.TestCase):
     
     def setUp(self):
         # Create standard passing mock data

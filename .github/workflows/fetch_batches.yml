@@ -1,4 +1,4 @@
-name: Fetch CANSLIM Batches
+name: Fetch Momentum Stock Batches
 
 on:
   schedule:

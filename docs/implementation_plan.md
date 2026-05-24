@@ -1,6 +1,6 @@
-# Implementation Plan — CANSLIM Screener
+# Implementation Plan — Momentum Stock Screener
 
-Implement an interactive browser-based stock screener applying CANSLIM-derived criteria. Financial data is fetched nightly via GitHub Actions, processed into dated CSV files, and committed to the repository. The frontend is a static web application that parses the CSV files using PapaParse and displays the results in a premium, sortable, and filterable table.
+Implement an interactive browser-based stock screener applying Momentum Stock-derived criteria. Financial data is fetched nightly via GitHub Actions, processed into dated CSV files, and committed to the repository. The frontend is a static web application that parses the CSV files using PapaParse and displays the results in a premium, sortable, and filterable table.
 
 ## User Review Required
 
@@ -18,7 +18,7 @@ Implement an interactive browser-based stock screener applying CANSLIM-derived c
 
 ## Open Questions
 
-None at this time. The plan matches the specification in [master_plan.md](file:///c:/Users/ziyen/canslim_screener/docs/master_plan.md) and has been validated against active Yahoo Finance data.
+None at this time. The plan matches the specification in [master_plan.md](file:///c:/Users/ziyen/momentum_stock_screener/docs/master_plan.md) and has been validated against active Yahoo Finance data.
 
 ---
 
@@ -26,20 +26,20 @@ None at this time. The plan matches the specification in [master_plan.md](file:/
 
 ### Component 1: Python Pipeline & Data Config
 
-This component handles fetching data from Yahoo Finance, evaluating CANSLIM criteria, and merging the outputs into a CSV daily.
+This component handles fetching data from Yahoo Finance, evaluating Momentum Stock criteria, and merging the outputs into a CSV daily.
 
-#### [NEW] [master.csv](file:///c:/Users/ziyen/canslim_screener/data/master.csv)
+#### [NEW] [master.csv](file:///c:/Users/ziyen/momentum_stock_screener/data/master.csv)
 - Store the master watchlist of 60 popular US tickers.
 
-#### [NEW] [split_master.py](file:///c:/Users/ziyen/canslim_screener/scripts/split_master.py)
+#### [NEW] [split_master.py](file:///c:/Users/ziyen/momentum_stock_screener/scripts/split_master.py)
 - Utility script to split `data/master.csv` into 6 files (`batch_1.json`, etc.) or dynamically run on a single batch.
 
-#### [NEW] [fetch_batch.py](file:///c:/Users/ziyen/canslim_screener/scripts/fetch_batch.py)
+#### [NEW] [fetch_batch.py](file:///c:/Users/ziyen/momentum_stock_screener/scripts/fetch_batch.py)
 - Fetches yfinance data for a given batch.
-- Contains the 9 CANSLIM evaluation criteria.
+- Contains the 9 Momentum Stock evaluation criteria.
 - Handles errors, missing data, and type-converts numpy data types to standard JSON-serializable types.
 
-#### [NEW] [merge_output.py](file:///c:/Users/ziyen/canslim_screener/scripts/merge_output.py)
+#### [NEW] [merge_output.py](file:///c:/Users/ziyen/momentum_stock_screener/scripts/merge_output.py)
 - Merges the batch JSON output into the dated CSV `frontend/output/output_YYYY-MM-DD.csv`.
 - Deduplicates tickers, keeping the latest fetched data.
 - Updates `frontend/output/manifest.json` with the list of dates sorted descending.
@@ -50,7 +50,7 @@ This component handles fetching data from Yahoo Finance, evaluating CANSLIM crit
 
 Automate the nightly runs and support manual triggering.
 
-#### [NEW] [.github/workflows/batch_1.yml](file:///c:/Users/ziyen/canslim_screener/.github/workflows/batch_1.yml) ... [.github/workflows/batch_6.yml](file:///c:/Users/ziyen/canslim_screener/.github/workflows/batch_6.yml)
+#### [NEW] [.github/workflows/batch_1.yml](file:///c:/Users/ziyen/momentum_stock_screener/.github/workflows/batch_1.yml) ... [.github/workflows/batch_6.yml](file:///c:/Users/ziyen/momentum_stock_screener/.github/workflows/batch_6.yml)
 - Nightly triggers at 02:00, 02:10, 02:20, 02:30, 02:40, 02:50 UTC respectively.
 - Manual execution trigger (`workflow_dispatch`).
 - Commits results back to the repo using a GitHub Actions bot.
@@ -61,15 +61,15 @@ Automate the nightly runs and support manual triggering.
 
 A beautiful frontend with dynamic controls.
 
-#### [NEW] [index.html](file:///c:/Users/ziyen/canslim_screener/frontend/index.html)
+#### [NEW] [index.html](file:///c:/Users/ziyen/momentum_stock_screener/frontend/index.html)
 - Main HTML structure.
 - Imports Google Fonts (Inter) and Tailwind CSS / custom styles.
 - Loads PapaParse CDN and the main frontend logic.
 
-#### [NEW] [style.css](file:///c:/Users/ziyen/canslim_screener/frontend/style.css)
+#### [NEW] [style.css](file:///c:/Users/ziyen/momentum_stock_screener/frontend/style.css)
 - Custom premium styling (modern dark-theme, glassmorphism, responsive table, animated tooltips, passing/failing badges).
 
-#### [NEW] [app.js](file:///c:/Users/ziyen/canslim_screener/frontend/app.js)
+#### [NEW] [app.js](file:///c:/Users/ziyen/momentum_stock_screener/frontend/app.js)
 - Fetches `frontend/output/manifest.json` and loads the latest CSV.
 - Populates the date picker.
 - Implements sorting, filtering (Toggle "Passing only" / "All"), search, and client-side CSV export.

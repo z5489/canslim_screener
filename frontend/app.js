@@ -363,7 +363,7 @@ function exportFilteredToCSV() {
     
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `canslim_screened_${appState.selectedDate}.csv`);
+    link.setAttribute("download", `momentum_stock_screened_${appState.selectedDate}.csv`);
     link.style.visibility = "hidden";
     
     document.body.appendChild(link);

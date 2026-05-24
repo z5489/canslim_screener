@@ -1,10 +1,10 @@
-# CANSLIM Screener — Master Plan & Architecture
+# Momentum Stock Screener — Master Plan & Architecture
 
 ---
 
 ## 1. Project Summary
 
-A browser-based interactive stock screener that applies CANSLIM-derived criteria to a pre-screened watchlist. Financial data is fetched nightly via GitHub Actions, processed into dated CSV files, and committed to the repo. The frontend is a pure static app — no backend at runtime — that loads the most recent `output_<date>.csv` directly and renders results in a sortable, filterable table with a pass/fail toggle and a date-picker dropdown to browse historical snapshots.
+A browser-based interactive stock screener that applies Momentum Stock-derived criteria to a pre-screened watchlist. Financial data is fetched nightly via GitHub Actions, processed into dated CSV files, and committed to the repo. The frontend is a pure static app — no backend at runtime — that loads the most recent `output_<date>.csv` directly and renders results in a sortable, filterable table with a pass/fail toggle and a date-picker dropdown to browse historical snapshots.
 
 ---
 
@@ -12,7 +12,7 @@ A browser-based interactive stock screener that applies CANSLIM-derived criteria
 
 ### Input — Data Pipeline
 - A `master.csv` of stock tickers is the source of truth
-- 6 GitHub Actions workflows split the master list into batches and fetch all CANSLIM data fields for each batch, producing `batch_1.json` … `batch_6.json`
+- 6 GitHub Actions workflows split the master list into batches and fetch all Momentum Stock data fields for each batch, producing `batch_1.json` … `batch_6.json`
 - Each workflow checks whether an `output_<date>.csv` already exists for today; if it does, it merges its batch results in and deduplicates by ticker; if not, it creates it fresh
 - The final `output_<date>.csv` accumulates across all 6 batch runs and lives at `frontend/output/output_YYYY-MM-DD.csv`
 
@@ -93,7 +93,7 @@ Where `N` = number of trading bars in the last calendar month (~21 trading days)
 ### File Structure
 
 ```
-canslim-screener/
+momentum-stock-screener/
 ├── .github/
 │   └── workflows/
 │       ├── batch_1.yml          # GH Action for tickers 1–N/6
@@ -122,7 +122,7 @@ canslim-screener/
 │   ├── index.html               # single-page app
 │   ├── app.js                   # date discovery, CSV parse, table render
 │   └── style.css
-├── canslim_screener_plan.md
+├── momentum_stock_screener_plan.md
 └── README.md
 ```
 

@@ -1,6 +1,6 @@
-# CANSLIM Stock Screener
+# Momentum Stock Stock Screener
 
-A browser-based interactive stock screener that applies CANSLIM-derived criteria to a pre-screened watchlist. 
+A browser-based interactive stock screener that applies Momentum Stock-derived criteria to a pre-screened watchlist. 
 
 Financial data is fetched nightly via 6 staggered GitHub Actions, processed into daily CSV files, and committed back to the repository. The frontend is a static web application that loads the most recent CSV directly to render the results in an interactive, sortable, and filterable table.
 
@@ -61,7 +61,7 @@ Financial data is fetched nightly via 6 staggered GitHub Actions, processed into
 ## Directory Structure
 
 ```
-canslim-screener/
+momentum-stock-screener/
 ├── .github/
 │   └── workflows/
 │       ├── batch_1.yml          # GitHub Action workflows staggered by 10 min
