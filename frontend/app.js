@@ -139,7 +139,7 @@ function loadDateData(dateString) {
     const csvUrl = `./output/output_${dateString}.csv?v=${Date.now()}`;
     
     // Show loading spinner or text
-    tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-muted">Loading ${dateString} data...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="12" class="text-center py-8 text-muted">Loading ${dateString} data...</td></tr>`;
     errorBanner.classList.add("hidden");
 
     fetch(csvUrl)
@@ -163,7 +163,7 @@ function loadDateData(dateString) {
         .catch(err => {
             console.error("CSV loading error:", err);
             showError(`Failed to load data for ${dateString}. Select another date.`);
-            tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-danger">⚠️ Failed to load data for ${dateString}</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="12" class="text-center py-8 text-danger">⚠️ Failed to load data for ${dateString}</td></tr>`;
         });
 }
 
@@ -278,11 +278,8 @@ function renderTable() {
             tr.className = "error-row";
             tr.innerHTML = `
                 <td class="ticker-col">${escapeHtml(row.ticker)}</td>
-                <td class="name-col" colspan="10">
+                <td class="name-col" colspan="11">
                     <span class="error-badge">API Error</span> ${escapeHtml(row.error)}
-                </td>
-                <td class="text-center">
-                    <span class="badge fail">✗ Fail</span>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -322,9 +319,7 @@ function renderTable() {
             ${createCellHTML("c7_revenue_growth_passes", "c7_revenue_growth_value")}
             ${createCellHTML("c8_float_passes", "c8_float_value")}
             ${createCellHTML("c9_us_market_passes", "c9_us_market_value")}
-            <td class="text-center">
-                <span class="badge ${passesAll ? 'pass' : 'fail'}">${passesAll ? '✓ Pass' : '✗ Fail'}</span>
-            </td>
+
         `;
         
         tbody.appendChild(tr);
