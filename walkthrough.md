@@ -65,11 +65,11 @@ Merged output saved. Row count: 10
 Starting fetch for Batch 6 (10 tickers)...
 Merged output saved. Row count: 60
 Rebuilding manifest.json...
-Manifest written to output/manifest.json with dates: ['2026-05-23']
+Manifest written to frontend/output/manifest.json with dates: ['2026-05-23']
 ```
 
 ### 3. Local Web Server Verification
 We ran `python -m http.server 8000` and confirmed:
-- [manifest.json](file:///c:/Users/ziyen/canslim_screener/output/manifest.json) is fetched successfully.
-- [output_2026-05-23.csv](file:///c:/Users/ziyen/canslim_screener/output/output_2026-05-23.csv) is successfully parsed by PapaParse.
+- [manifest.json](file:///c:/Users/ziyen/canslim_screener/frontend/output/manifest.json) is fetched successfully.
+- [output_2026-05-23.csv](file:///c:/Users/ziyen/canslim_screener/frontend/output/output_2026-05-23.csv) is successfully parsed by PapaParse.
 - The web page loads cleanly, showing the summary cards and the interactive results table.

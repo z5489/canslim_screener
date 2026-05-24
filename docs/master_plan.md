@@ -14,7 +14,7 @@ A browser-based interactive stock screener that applies CANSLIM-derived criteria
 - A `master.csv` of stock tickers is the source of truth
 - 6 GitHub Actions workflows split the master list into batches and fetch all CANSLIM data fields for each batch, producing `batch_1.json` … `batch_6.json`
 - Each workflow checks whether an `output_<date>.csv` already exists for today; if it does, it merges its batch results in and deduplicates by ticker; if not, it creates it fresh
-- The final `output_<date>.csv` accumulates across all 6 batch runs and lives at `output/output_YYYY-MM-DD.csv`
+- The final `output_<date>.csv` accumulates across all 6 batch runs and lives at `frontend/output/output_YYYY-MM-DD.csv`
 
 ### Input — Dashboard
 - The dashboard is pure frontend — no CSV upload, no backend at runtime
@@ -71,10 +71,10 @@ Where `N` = number of trading bars in the last calendar month (~21 trading days)
 │         │              │              │                  │
 │         └──────────────┼──────────────┘                 │
 │                        ▼                                │
-│              check output/output_<date>.csv             │
+│              check frontend/output/output_<date>.csv             │
 │              exists? merge + dedup : create             │
 │                        │                                │
-│              output/output_YYYY-MM-DD.csv  ◄────────┐  │
+│              frontend/output/output_YYYY-MM-DD.csv  ◄────────┐  │
 │                        │                             │  │
 │              committed back to repo                  │  │
 └────────────────────────┼─────────────────────────────┘  │
@@ -114,7 +114,7 @@ canslim-screener/
 │   ├── batch_4.json
 │   ├── batch_5.json
 │   └── batch_6.json
-├── output/
+├── frontend/output/
 │   ├── output_2026-05-23.csv    # dated snapshot (one per day)
 │   ├── output_2026-05-22.csv
 │   └── …
@@ -161,7 +161,7 @@ jobs:
         run: python scripts/fetch_batch.py --batch 1 --output data/batch_1.json
 
       - name: Merge into dated output CSV
-        run: python scripts/merge_output.py --batch data/batch_1.json --output-dir output/
+        run: python scripts/merge_output.py --batch data/batch_1.json --output-dir frontend/output/
 
       - name: Commit results
         run: |
@@ -333,7 +333,7 @@ No backend at runtime. The frontend fetches CSV files directly from the repo (vi
 The frontend cannot list a directory dynamically, so the repo maintains a small manifest file that is updated by each GitHub Action run:
 
 ```
-output/manifest.json
+frontend/output/manifest.json
 ```
 
 ```json
@@ -351,9 +351,9 @@ output/manifest.json
 ### Load Flow
 
 ```
-1. fetch output/manifest.json
+1. fetch frontend/output/manifest.json
 2. populate date dropdown (most recent selected by default)
-3. fetch output/output_<selected_date>.csv
+3. fetch frontend/output/output_<selected_date>.csv
 4. parse CSV (PapaParse)
 5. evaluate passes_all per row
 6. render table — passing rows only
@@ -460,7 +460,7 @@ pip install yfinance pandas numpy
 python scripts/fetch_batch.py --batch 1 --output data/batch_1.json
 
 # Merge into today's output CSV
-python scripts/merge_output.py --batch data/batch_1.json --output-dir output/
+python scripts/merge_output.py --batch data/batch_1.json --output-dir frontend/output/
 
 # Serve frontend
 cd frontend && python -m http.server 3000

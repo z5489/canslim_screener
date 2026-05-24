@@ -40,9 +40,9 @@ This component handles fetching data from Yahoo Finance, evaluating CANSLIM crit
 - Handles errors, missing data, and type-converts numpy data types to standard JSON-serializable types.
 
 #### [NEW] [merge_output.py](file:///c:/Users/ziyen/canslim_screener/scripts/merge_output.py)
-- Merges the batch JSON output into the dated CSV `output/output_YYYY-MM-DD.csv`.
+- Merges the batch JSON output into the dated CSV `frontend/output/output_YYYY-MM-DD.csv`.
 - Deduplicates tickers, keeping the latest fetched data.
-- Updates `output/manifest.json` with the list of dates sorted descending.
+- Updates `frontend/output/manifest.json` with the list of dates sorted descending.
 
 ---
 
@@ -70,7 +70,7 @@ A beautiful frontend with dynamic controls.
 - Custom premium styling (modern dark-theme, glassmorphism, responsive table, animated tooltips, passing/failing badges).
 
 #### [NEW] [app.js](file:///c:/Users/ziyen/canslim_screener/frontend/app.js)
-- Fetches `output/manifest.json` and loads the latest CSV.
+- Fetches `frontend/output/manifest.json` and loads the latest CSV.
 - Populates the date picker.
 - Implements sorting, filtering (Toggle "Passing only" / "All"), search, and client-side CSV export.
 - Features custom tooltips on hover for column headers to explain each criterion.

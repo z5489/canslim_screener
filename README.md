@@ -21,14 +21,14 @@ Financial data is fetched nightly via 6 staggered GitHub Actions, processed into
 │         │              │              │                  │
 │         └──────────────┼──────────────┘                 │
 │                        ▼                                │
-│              check output/output_<date>.csv             │
+│              check frontend/output/output_<date>.csv             │
 │              exists? merge + dedup : create             │
 │                        │                                │
-│              output/output_YYYY-MM-DD.csv  ◄────────┐  │
+│              frontend/output/output_YYYY-MM-DD.csv  ◄────────┐  │
 │                        │                             │  │
 │              committed back to repo                  │  │
 │                                                      │  │
-│              rebuild output/manifest.json            │  │
+│              rebuild frontend/output/manifest.json            │  │
 └────────────────────────┼─────────────────────────────┘  │
                          │                                 │
               ┌──────────▼──────────┐                      │
@@ -72,7 +72,7 @@ canslim-screener/
 │   ├── split_master.py          # Utility: split master list into 6 batches
 │   ├── fetch_batch.py           # yfinance fetch + criteria evaluation
 │   └── merge_output.py          # Merge JSON batch data, update manifest
-├── output/
+├── frontend/output/
 │   ├── manifest.json            # Dynamic index of all available dates
 │   └── output_YYYY-MM-DD.csv    # Daily parsed dataset (schema-aligned)
 ├── frontend/
@@ -112,7 +112,7 @@ python scripts/fetch_batch.py --batch 1 --output data/batch_1.json
 
 Merge the fetched batch JSON into today's CSV file and update `manifest.json`:
 ```bash
-python scripts/merge_output.py --batch data/batch_1.json --output-dir output/
+python scripts/merge_output.py --batch data/batch_1.json --output-dir frontend/output/
 ```
 
 ### 4. Running the Dashboard
