@@ -18,7 +18,7 @@ Implement an interactive browser-based stock screener applying CANSLIM-derived c
 
 ## Open Questions
 
-None at this time. The plan matches the specification in [plan.md](file:///c:/Users/ziyen/canslim_screener/docs/plan.md) and has been validated against active Yahoo Finance data.
+None at this time. The plan matches the specification in [master_plan.md](file:///c:/Users/ziyen/canslim_screener/docs/master_plan.md) and has been validated against active Yahoo Finance data.
 
 ---
 
