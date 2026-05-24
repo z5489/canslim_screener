@@ -6,6 +6,8 @@ import argparse
 import os
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
+import time
+import random
 
 def safe_float(val):
     if val is None or pd.isna(val):
@@ -20,9 +22,10 @@ def safe_bool(val):
         return None
     return bool(val)
 
-def evaluate_criteria(symbol):
-    try:
-        t = yf.Ticker(symbol)
+def evaluate_criteria(symbol, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            t = yf.Ticker(symbol)
         info = t.info
         hist = t.history(period="3mo")
         inc = t.quarterly_income_stmt
@@ -166,6 +169,13 @@ def evaluate_criteria(symbol):
             "error": ""
         }
     except Exception as e:
+        error_msg = str(e).lower()
+        if attempt < max_retries - 1 and ("too many requests" in error_msg or "rate limit" in error_msg or "429" in error_msg):
+            sleep_time = 90 + random.uniform(1, 5)
+            print(f"Rate limited on {symbol}. Retrying in {sleep_time:.1f}s... (Attempt {attempt+1}/{max_retries})")
+            time.sleep(sleep_time)
+            continue
+
         return {
             "ticker": symbol,
             "name": symbol,
