@@ -95,9 +95,8 @@ function setActiveFilter(mode) {
 
 // Fetch list of available dates from manifest.json
 function fetchManifest() {
-    // Adjust manifest path to point relative to this frontend folder
-    // Since output/manifest.json is in ../output/manifest.json
-    const manifestUrl = "../output/manifest.json?t=" + Date.now();
+    // Adjust manifest path to point relative to the root
+    const manifestUrl = "./output/manifest.json?t=" + Date.now();
 
     fetch(manifestUrl)
         .then(response => {
@@ -137,7 +136,7 @@ function populateDateDropdown() {
 // Load individual dated CSV file
 function loadDateData(dateString) {
     appState.selectedDate = dateString;
-    const csvUrl = `../output/output_${dateString}.csv?v=${Date.now()}`;
+    const csvUrl = `./output/output_${dateString}.csv?v=${Date.now()}`;
     
     // Show loading spinner or text
     tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-muted">Loading ${dateString} data...</td></tr>`;

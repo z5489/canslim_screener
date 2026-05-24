@@ -59,13 +59,13 @@ jobs:
         run: python scripts/fetch_batch.py --batch ${{ matrix.batch }} --output data/batch_${{ matrix.batch }}.json
 
       - name: Merge into dated output CSV
-        run: python scripts/merge_output.py --batch data/batch_${{ matrix.batch }}.json --output-dir output/
+        run: python scripts/merge_output.py --batch data/batch_${{ matrix.batch }}.json --output-dir frontend/output/
 
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/batch_${{ matrix.batch }}.json output/
+          git add data/batch_${{ matrix.batch }}.json frontend/output/
           if ! git diff --staged --quiet; then
             git commit -m "chore: update batch ${{ matrix.batch }} $(date +%Y-%m-%d)"
             git pull --rebase origin main || git pull --rebase origin master
