@@ -81,10 +81,14 @@
                     <span class="dot gray"></span> All stocks
                 </button>
             </div>
-            <div class="actions-area">
-                <button id="export-csv-btn" class="action-btn-primary">
-                    Export filtered to CSV
+            <div class="actions-area dropdown">
+                <button id="export-csv-btn" class="action-btn-primary dropdown-toggle">
+                    Export filtered to CSV <span class="dropdown-arrow">▼</span>
                 </button>
+                <div id="export-submenu" class="dropdown-menu hidden">
+                    <button id="export-full-btn" class="dropdown-item">Full CSV</button>
+                    <button id="export-ticker-btn" class="dropdown-item">Only Ticker</button>
+                </div>
             </div>
         </section>
 

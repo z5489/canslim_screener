@@ -16,6 +16,9 @@ const searchInput = document.getElementById("search-input");
 const togglePassing = document.getElementById("toggle-passing");
 const toggleAll = document.getElementById("toggle-all");
 const exportCsvBtn = document.getElementById("export-csv-btn");
+const exportSubmenu = document.getElementById("export-submenu");
+const exportFullBtn = document.getElementById("export-full-btn");
+const exportTickerBtn = document.getElementById("export-ticker-btn");
 const tbody = document.getElementById("screener-tbody");
 const errorBanner = document.getElementById("error-banner");
 const errorMessage = document.getElementById("error-message");
@@ -58,7 +61,26 @@ function setupEventListeners() {
     });
 
     // Export CSV
-    exportCsvBtn.addEventListener("click", exportFilteredToCSV);
+    exportCsvBtn.addEventListener("click", () => {
+        exportSubmenu.classList.toggle("hidden");
+    });
+    exportFullBtn.addEventListener("click", () => {
+        exportSubmenu.classList.add("hidden");
+        exportFilteredToCSV("full");
+    });
+    exportTickerBtn.addEventListener("click", () => {
+        exportSubmenu.classList.add("hidden");
+        exportFilteredToCSV("ticker");
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".actions-area.dropdown")) {
+            if(exportSubmenu && !exportSubmenu.classList.contains("hidden")) {
+                exportSubmenu.classList.add("hidden");
+            }
+        }
+    });
 
     // Error Close
     errorClose.addEventListener("click", () => {
@@ -354,16 +376,26 @@ function handleSort(column) {
 }
 
 // Client-Side CSV Export of currently filtered & sorted table
-function exportFilteredToCSV() {
+function exportFilteredToCSV(mode = "full") {
     if (appState.filteredData.length === 0) return;
     
-    const csvContent = Papa.unparse(appState.filteredData);
+    let dataToExport = appState.filteredData;
+    
+    if (mode === "ticker") {
+        dataToExport = appState.filteredData.map(row => ({
+            Ticker: row.ticker
+        }));
+    }
+    
+    const csvContent = Papa.unparse(dataToExport);
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `momentum_stock_screened_${appState.selectedDate}.csv`);
+    
+    const fileSuffix = mode === "ticker" ? "_tickers_only" : "";
+    link.setAttribute("download", `momentum_stock_screened_${appState.selectedDate}${fileSuffix}.csv`);
     link.style.visibility = "hidden";
     
     document.body.appendChild(link);

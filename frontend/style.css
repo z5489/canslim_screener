@@ -656,3 +656,51 @@ tr.error-row:hover {
         display: none !important;
     }
 }
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    min-width: 160px;
+    z-index: 100;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu.hidden {
+    display: none !important;
+}
+
+.dropdown-item {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.dropdown-item:hover {
+    background-color: #1a233a;
+    color: #ffffff;
+}
+
+.dropdown-arrow {
+    font-size: 0.7em;
+    margin-left: 0.25rem;
+}
