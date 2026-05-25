@@ -445,9 +445,9 @@ th.sortable:hover {
 .has-tooltip::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 125%;
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%) scale(0.95);
+    transform: translateX(-50%) translateY(4px) scale(0.95);
     background-color: #0b0f19;
     color: #ffffff;
     border: 1px solid var(--border-color);
@@ -470,7 +470,7 @@ th.sortable:hover {
 
 .has-tooltip:hover::after {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%) translateY(4px) scale(1);
 }
 
 /* Table body */
