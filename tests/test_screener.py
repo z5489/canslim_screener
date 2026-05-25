@@ -111,7 +111,26 @@ class TestMomentumStockScreener(unittest.TestCase):
         self.assertEqual(res["c3_eps_growth_value"], "N/A")
         self.assertIsNone(res["c7_revenue_growth_passes"])
         self.assertEqual(res["c7_revenue_growth_value"], "N/A")
-        self.assertFalse(res["passes_all"]) # Cannot pass all since some are None
+        self.assertTrue(res["passes_all"]) # Passes since we only have 2 N/As and no False
+
+    @patch('scripts.fetch_batch.yf.Ticker')
+    def test_evaluate_criteria_too_many_na(self, mock_ticker_cls):
+        # 3 items are N/A (c3, c7, and c8 because floatShares is missing)
+        info = self.mock_info.copy()
+        info.pop('floatShares') # c8 will be None
+        
+        mock_ticker = MagicMock()
+        mock_ticker.info = info
+        mock_ticker.history.return_value = self.mock_hist
+        mock_ticker.quarterly_income_stmt = pd.DataFrame() # c3 and c7 will be None
+        mock_ticker_cls.return_value = mock_ticker
+        
+        res = evaluate_criteria("TEST")
+        
+        self.assertIsNone(res["c3_eps_growth_passes"])
+        self.assertIsNone(res["c7_revenue_growth_passes"])
+        self.assertIsNone(res["c8_float_passes"])
+        self.assertFalse(res["passes_all"]) # 3 N/As should fail overall
 
     @patch('scripts.fetch_batch.yf.Ticker')
     def test_evaluate_criteria_error_handling(self, mock_ticker_cls):

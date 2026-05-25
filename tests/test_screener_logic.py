@@ -115,7 +115,9 @@ def evaluate_criteria(symbol):
 
         # Passes all?
         passes_list = [c1_passes, c2_passes, c3_passes, c4_passes, c5_passes, c6_passes, c7_passes, c8_passes, c9_passes]
-        passes_all = all(p is True for p in passes_list)
+        num_false = sum(1 for p in passes_list if p is False)
+        num_none = sum(1 for p in passes_list if p is None)
+        passes_all = (num_false == 0) and (num_none <= 2)
 
         return {
             "ticker": symbol,
