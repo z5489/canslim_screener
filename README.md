@@ -42,6 +42,12 @@ Financial data is fetched nightly via 6 staggered GitHub Actions, processed into
               └─────────────────────┘
 ```
 
+### Ticker Universe
+
+The initial universe of stocks fed into the screener is restricted to:
+- **US Market Only**: Only US-listed tickers are included.
+- **Market Cap**: Must have a market capitalization of at least $300M USD.
+
 ### Screening Criteria
 
 | # | Criterion | Rule | Data Point |
