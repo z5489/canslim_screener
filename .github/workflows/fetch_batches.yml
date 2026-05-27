@@ -3,7 +3,7 @@ name: Fetch Momentum Stock Batches
 on:
   schedule:
     # Run daily at 02:00 UTC
-    - cron: '0 2 * * 1-5'
+    - cron: '0 22 * * 1-5'
   workflow_dispatch:
     inputs:
       batch:
